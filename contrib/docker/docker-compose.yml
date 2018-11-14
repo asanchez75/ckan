@@ -1,6 +1,6 @@
 # docker-compose build && docker-compose up -d
 # If "docker-compose logs ckan" shows DB not ready, run "docker-compose restart ckan" a few times.
-version: "3"
+version: "3.5"
 
 volumes:
   ckan_config:
@@ -11,6 +11,7 @@ volumes:
 services:
   ckan:
     container_name: ckan
+    restart: always
     build:
       context: ../../
       args:
@@ -41,12 +42,14 @@ services:
 
   datapusher:
     container_name: datapusher
+    restart: always
     image: clementmouchet/datapusher
     ports:
       - "8800:8800"
 
   db:
     container_name: db
+    restart: always
     build:
       context: ../../
       dockerfile: contrib/docker/postgresql/Dockerfile
@@ -61,6 +64,7 @@ services:
 
   solr:
     container_name: solr
+    restart: always
     build:
       context: ../../
       dockerfile: contrib/docker/solr/Dockerfile
@@ -68,4 +72,10 @@ services:
 
   redis:
     container_name: redis
+    restart: always
     image: redis:latest
+
+networks:
+   default:
+     name: ckan
+     driver: bridge

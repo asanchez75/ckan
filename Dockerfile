@@ -48,6 +48,10 @@ RUN ckan-pip install -U pip && \
     ckan-pip install --upgrade --no-cache-dir -r $CKAN_VENV/src/ckan/requirement-setuptools.txt && \
     ckan-pip install --upgrade --no-cache-dir -r $CKAN_VENV/src/ckan/requirements.txt && \
     ckan-pip install -e $CKAN_VENV/src/ckan/ && \
+    git clone https://github.com/ckan/ckanext-viewhelpers.git $CKAN_VENV/src/ckan/ckanext-viewhelpers && \
+    ckan-pip install -e $CKAN_VENV/src/ckan/ckanext-viewhelpers && \
+    git clone https://github.com/ckan/ckanext-dashboard.git $CKAN_VENV/src/ckan/ckanext-dashboard && \
+    ckan-pip install -e $CKAN_VENV/src/ckan/ckanext-dashboard && \
     ln -s $CKAN_VENV/src/ckan/ckan/config/who.ini $CKAN_CONFIG/who.ini && \
     cp -v $CKAN_VENV/src/ckan/contrib/docker/ckan-entrypoint.sh /ckan-entrypoint.sh && \
     chmod +x /ckan-entrypoint.sh && \
